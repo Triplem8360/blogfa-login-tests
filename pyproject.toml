@@ -1,0 +1,42 @@
+[project]
+name = "blogfa-login-tests"
+version = "0.1.0"
+description = "Simple browser tests for the Blogfa login page."
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "playwright>=1.51,<2",
+    "pytest>=8.3,<10",
+    "pytest-html>=4.1,<5",
+    "pytest-playwright>=0.7,<1",
+    "ruff>=0.11,<1",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--browser=chromium",
+    "--html=reports/report.html",
+    "--self-contained-html",
+    "--screenshot=only-on-failure",
+    "--output=test-results",
+]
+markers = [
+    "smoke: check the login page without submitting credentials",
+    "login: submit the login form with valid, invalid, or missing credentials",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
